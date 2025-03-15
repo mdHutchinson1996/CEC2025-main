@@ -3,22 +3,18 @@ from ultralytics import YOLO
 import os
 import csv
 
-
 current_directory = os.path.dirname(os.path.abspath(__file__))
 parent_directory = os.path.dirname(current_directory)
 
 model = YOLO(parent_directory+'/yolomodel/YOLOModel/runs/train/yolov8n_custom4/weights/best.pt')  # Path to your trained model weights
-
 
  # Specify the folder containing images.
 image_folder = os.getenv('CEC_2025_dataset')
 image_folder = os.path.join(image_folder, 'CEC_test')
 
 def predict_images(image_path):
-    # Iterate over all files in the folder.
-
-        
-        # Predict on the image.
+   
+     # Predict on the image.
     results = model.predict(image_path, save=True)  # Path to the image you want to classify
 
         # Extract the classification result.
@@ -35,10 +31,6 @@ def predict_images(image_path):
 
         return(confidence, belongs_to_yes_class)
 
-
-
-# Assuming parent_directory and model are already defined
-#image_folder = os.path.join(parent_directory, 'TestLabelFolder')
 
 def runPrediction():
     with open('predictedResults.csv', mode='w', newline='') as results_file, \
